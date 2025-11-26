@@ -1,0 +1,5 @@
+.detalle-card { border:1px solid #1b2f46 }
+.detalle-card .card-header { background:#0e2236 }
+.info-group p { margin-bottom:0 }
+.kpi { display:flex; gap:8px; flex-wrap:wrap; margin-top:8px }
+.kpi .badge { padding:8px 10px }

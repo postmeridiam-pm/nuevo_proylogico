@@ -1,0 +1,7 @@
+[
+  {"motorista":"Helena Díaz","farmacia":"Cruz Verde Centro (F001)","fecha_asignacion":"2025-11-22T08:00:00","activa":1},
+  {"motorista":"Eren Yager","farmacia":"Cruz Verde Norte (F002)","fecha_asignacion":"2025-11-22T08:30:00","activa":1},
+  {"motorista":"Levi Ackerman","farmacia":"Cruz Verde Sur (F003)","fecha_asignacion":"2025-11-22T09:00:00","activa":1},
+  {"motorista":"María Torres","farmacia":"Cruz Verde Oriente (F004)","fecha_asignacion":"2025-11-22T10:00:00","activa":1},
+  {"motorista":"José Pérez","farmacia":"Cruz Verde Poniente (F005)","fecha_asignacion":"2025-11-22T10:30:00","activa":0}
+]

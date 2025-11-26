@@ -1,0 +1,4 @@
+.table thead{background:linear-gradient(135deg,#2ecc71,#27ae60);color:#fff}
+.table tbody tr{background-color:#0d1a2a}
+.table tbody tr:hover{background-color:#12223f}
+.badge{border-radius:6px}

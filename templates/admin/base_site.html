@@ -1,0 +1,44 @@
+{% extends "admin/base.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}
+{{ block.super }}
+<style>
+  #header { background-color: #212529; }
+  #header #site-name a { color: #fff; text-decoration: none; }
+  #header .userlinks a.big-view {
+    font-size: 1.1rem;
+    padding: .6rem 1.2rem;
+    border-radius: 8px;
+    background: #2ecc71;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+  }
+  #header .userlinks a.big-view:hover { background: #27ae60; color: #fff; }
+</style>
+{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">
+  <a href="{% url 'admin:index' %}">
+    <img src="{% static 'admin/logo.svg' %}" alt="LOGICO" style="height:24px;vertical-align:middle;margin-right:.5rem;">
+    LOGICO · Administración
+  </a>
+</h1>
+{% endblock %}
+
+{% block userlinks %}
+<div class="userlinks">
+  {% if site_url %}
+    <a href="{{ site_url }}" class="big-view" target="_blank" rel="noopener">{% trans 'Ver sitio' %}</a>
+  {% endif %}
+  {% if user.is_active and user.is_staff %}
+    <a href="{% url 'admin:password_change' %}">{% trans 'Cambiar contraseña' %}</a>
+  {% endif %}
+  {% if user.has_usable_password %}
+    <a href="{% url 'admin:logout' %}">{% trans 'Cerrar sesión' %}</a>
+  {% endif %}
+</div>
+{% endblock %}

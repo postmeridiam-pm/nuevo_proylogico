@@ -1,0 +1,4 @@
+[
+  {"codigo_despacho":"DSP-1001","farmacia_origen_local_id":"756","motorista":{"nombre":"Levi","apellido":"Ackerman"},"cliente_nombre":"Ana","estado":"EN_CAMINO","fecha_registro":"2025-11-22T09:00:00"},
+  {"codigo_despacho":"DSP-1002","farmacia_origen_local_id":"5329","motorista":{"nombre":"Helena","apellido":"Díaz"},"cliente_nombre":"Pedro","estado":"PENDIENTE","fecha_registro":"2025-11-22T09:10:00"}
+]

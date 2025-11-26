@@ -1,0 +1,718 @@
+{% load static %}
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if form %}{{ titulo }}{% elif asignacion %}Detalle Asignación{% else %}Asignaciones Moto–Motorista{% endif %} - LOGICO</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="{% static 'css/theme.css' %}">
+  <style>
+    :root {
+      --primary-color: #2ecc71;
+      --secondary-color: #27ae60;
+      --success-color: #00c853;
+      --warning-color: #ffa726;
+      --danger-color: #ef5350;
+      --info-color: #29b6f6;
+      --dark-bg: #1a1d29;
+      --dark-surface: #252837;
+      --dark-card: #2d3142;
+      --dark-border: #3a3f5c;
+      --dark-text: #e8eaed;
+      --dark-text-secondary: #9aa0b3;
+      --light-bg: #f5f7fa;
+      --light-surface: #ffffff;
+      --light-card: #ffffff;
+      --light-border: #e1e4e8;
+      --light-text: #1a1d29;
+      --light-text-secondary: #586069;
+    }
+
+    * {
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .theme-light {
+      --bg-primary: var(--light-bg);
+      --bg-surface: var(--light-surface);
+      --bg-card: var(--light-card);
+      --border-color: var(--light-border);
+      --text-primary: var(--light-text);
+      --text-secondary: var(--light-text-secondary);
+      --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      --shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.12);
+    }
+
+    .theme-dark {
+      --bg-primary: var(--dark-bg);
+      --bg-surface: var(--dark-surface);
+      --bg-card: var(--dark-card);
+      --border-color: var(--dark-border);
+      --text-primary: var(--dark-text);
+      --text-secondary: var(--dark-text-secondary);
+      --shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+      --shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.6);
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      min-height: 100vh;
+    }
+
+    .header-section {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      padding: 2rem 0;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow);
+    }
+
+    .header-section h1 {
+      color: white;
+      font-weight: 600;
+      margin: 0;
+      font-size: 1.75rem;
+    }
+
+    .header-section .breadcrumb {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+
+    .header-section .breadcrumb-item a {
+      color: rgba(255, 255, 255, 0.9);
+      text-decoration: none;
+    }
+
+    .header-section .breadcrumb-item.active {
+      color: white;
+    }
+
+    .header-section .breadcrumb-item + .breadcrumb-item::before {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .btn-nav {
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      color: white;
+      width: 45px;
+      height: 45px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .btn-nav:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.5);
+      transform: translateY(-2px);
+      color: white;
+    }
+
+    .theme-toggle {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .theme-btn {
+      background-color: var(--bg-card);
+      border: 2px solid var(--border-color);
+      color: var(--text-primary);
+      width: 45px;
+      height: 45px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 1.25rem;
+    }
+
+    .theme-btn:hover {
+      border-color: var(--primary-color);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .theme-btn.active {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      border-color: var(--primary-color);
+      color: white;
+    }
+
+    .card-custom {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+    }
+
+    .card-header-custom {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      padding: 1rem 1.5rem;
+      font-weight: 600;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-header-left {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .card-body-custom {
+      padding: 2rem;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .info-item {
+      background-color: var(--bg-surface);
+      padding: 1rem;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+    }
+
+    .info-item-label {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .info-item-value {
+      color: var(--text-primary);
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .section-title {
+      color: var(--text-primary);
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .section-title i {
+      color: var(--primary-color);
+    }
+
+    .badge-custom {
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-weight: 500;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-active {
+      background-color: var(--success-color);
+      color: white;
+    }
+
+    .badge-inactive {
+      background-color: var(--danger-color);
+      color: white;
+    }
+
+    .btn-custom {
+      border-radius: 8px;
+      padding: 0.625rem 1.5rem;
+      font-weight: 500;
+      border: none;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-primary-custom {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .btn-primary-custom:hover {
+      background-color: var(--secondary-color);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(46, 204, 113, 0.4);
+    }
+
+    .btn-success-custom {
+      background-color: var(--success-color);
+      color: white;
+    }
+
+    .btn-success-custom:hover {
+      background-color: #00b248;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 200, 83, 0.4);
+    }
+
+    .btn-outline-custom {
+      background-color: transparent;
+      border: 2px solid var(--border-color);
+      color: var(--text-primary);
+    }
+
+    .btn-outline-custom:hover {
+      background-color: var(--bg-surface);
+      border-color: var(--primary-color);
+      color: var(--primary-color);
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--text-secondary);
+    }
+
+    .empty-state i {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      opacity: 0.5;
+    }
+
+    /* Tabla moderna */
+    .table-custom {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+    }
+
+    .table-custom thead {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    }
+
+    .table-custom thead th {
+      color: white;
+      padding: 1rem;
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .table-custom thead th:first-child {
+      border-radius: 8px 0 0 0;
+    }
+
+    .table-custom thead th:last-child {
+      border-radius: 0 8px 0 0;
+    }
+
+    .table-custom tbody tr {
+      background-color: var(--bg-surface);
+      border-bottom: 1px solid var(--border-color);
+      transition: all 0.2s ease;
+    }
+
+    .table-custom tbody tr:hover {
+      background-color: var(--bg-card);
+      transform: translateX(2px);
+    }
+
+    .table-custom tbody td {
+      padding: 1rem;
+      color: var(--text-primary);
+    }
+
+    .table-custom tbody tr:last-child td:first-child {
+      border-radius: 0 0 0 8px;
+    }
+
+    .table-custom tbody tr:last-child td:last-child {
+      border-radius: 0 0 8px 0;
+    }
+
+    /* Formularios */
+    .form-control-custom {
+      background-color: var(--bg-surface);
+      border: 2px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 0.75rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      width: 100%;
+      font-size: 1rem;
+    }
+
+    .form-control-custom:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+    }
+
+    .form-label-custom {
+      color: var(--text-primary);
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .form-group-custom {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group-custom p {
+      margin-bottom: 1rem;
+    }
+
+    .form-group-custom label {
+      color: var(--text-primary);
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .form-group-custom input,
+    .form-group-custom select,
+    .form-group-custom textarea {
+      background-color: var(--bg-surface);
+      border: 2px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 0.75rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      width: 100%;
+      font-size: 1rem;
+    }
+
+    .form-group-custom input:focus,
+    .form-group-custom select:focus,
+    .form-group-custom textarea:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+    }
+
+    /* Filtros */
+    .filter-section {
+      background-color: var(--bg-card);
+      padding: 1.5rem;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+
+    .filter-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr auto;
+      gap: 1rem;
+      align-items: end;
+    }
+
+    /* Paginación */
+    .pagination-custom {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 2rem;
+      padding: 1rem;
+      background-color: var(--bg-card);
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+    }
+
+    .pagination-custom a {
+      background-color: var(--bg-surface);
+      color: var(--text-primary);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      border: 2px solid var(--border-color);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .pagination-custom a:hover {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      border-color: var(--primary-color);
+      transform: translateY(-2px);
+    }
+
+    .pagination-custom span {
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    @media (max-width: 768px) {
+      .header-section h1 {
+        font-size: 1.5rem;
+      }
+
+      .card-body-custom {
+        padding: 1.5rem;
+      }
+
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .filter-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .action-buttons {
+        flex-direction: column;
+      }
+
+      .action-buttons .btn-custom {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .table-custom {
+        font-size: 0.9rem;
+      }
+
+      .table-custom thead th,
+      .table-custom tbody td {
+        padding: 0.75rem 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body class="theme-light">
+  <div class="header-section">
+    <div class="container">
+      <nav aria-label="breadcrumb" class="mb-3">
+        <ol class="breadcrumb mb-0">
+          <li class="breadcrumb-item">
+            <a href="{% url 'home' %}"><i class="bi bi-house-door"></i> Inicio</a>
+          </li>
+          {% if form %}
+          <li class="breadcrumb-item">
+            <a href="{% url 'listado_asignaciones' %}">Asignaciones</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">{{ titulo }}</li>
+          {% elif asignacion %}
+          <li class="breadcrumb-item">
+            <a href="{% url 'listado_asignaciones' %}">Asignaciones</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">Detalle</li>
+          {% else %}
+          <li class="breadcrumb-item active" aria-current="page">Asignaciones</li>
+          {% endif %}
+        </ol>
+      </nav>
+      
+      <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+        <div>
+          <h1>
+            <i class="bi bi-link-45deg"></i>
+            {% if form %}
+              {{ titulo }}
+            {% elif asignacion %}
+              Detalle de Asignación
+            {% else %}
+              Asignaciones Moto–Motorista
+            {% endif %}
+          </h1>
+        </div>
+        
+        <div class="d-flex gap-2 align-items-center">
+          <div class="theme-toggle">
+            <button id="btn-light" class="theme-btn active" type="button" title="Modo claro">
+              <i class="bi bi-sun-fill"></i>
+            </button>
+            <button id="btn-dark" class="theme-btn" type="button" title="Modo oscuro">
+              <i class="bi bi-moon-stars-fill"></i>
+            </button>
+          </div>
+          {% if form or asignacion %}
+          <a class="btn-nav" href="{% url 'listado_asignaciones' %}" title="Volver al listado">
+            <i class="bi bi-arrow-left"></i>
+          </a>
+          {% else %}
+          <a class="btn-nav" href="{% url 'home' %}" title="Volver al inicio">
+            <i class="bi bi-arrow-left"></i>
+          </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container pb-5">
+    {% if form %}
+    <!-- Formulario de Crear/Editar -->
+    <div class="card-custom">
+      <div class="card-header-custom">
+        <div class="card-header-left">
+          <i class="bi bi-pencil-square"></i>
+          {{ titulo }}
+        </div>
+      </div>
+      <div class="card-body-custom">
+        <form method="post">
+          {% csrf_token %}
+          <div class="form-group-custom">
+            {{ form.as_p }}
+          </div>
+          <div class="action-buttons mt-4">
+            <button type="submit" class="btn btn-primary-custom btn-custom">
+              <i class="bi bi-save"></i> {{ boton_texto }}
+            </button>
+            <a href="{% url 'listado_asignaciones' %}" class="btn btn-outline-custom btn-custom">
+              <i class="bi bi-x-circle"></i> Cancelar
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    {% elif asignacion %}
+    <!-- Vista de Detalle -->
+    <div class="card-custom">
+      <div class="card-header-custom">
+        <div class="card-header-left">
+          <i class="bi bi-info-circle-fill"></i>
+          Información de la Asignación
+        </div>
+        <span class="{% if asignacion.activa %}badge-active{% else %}badge-inactive{% endif %} badge-custom">
+          {% if asignacion.activa %}
+          <i class="bi bi-check-circle"></i> Activa
+          {% else %}
+          <i class="bi bi-x-circle"></i> Inactiva
+          {% endif %}
+        </span>
+      </div>
+      <div class="card-body-custom">
+        <div class="info-grid">
+          <div class="info-item">
+            <div class="info-item-label">
+              <i class="bi bi-person-circle"></i>
+              Motorista
+            </div>
+            <div class="info-item-value">
+              {{ asignacion.motorista.usuario.nombre }} {{ asignacion.motorista.usuario.apellido }}
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-item-label">
+              <i class="bi bi-motorcycle"></i>
+              Moto
+            </div>
+            <div class="info-item-value">{{ asignacion.moto.patente }}</div>
+          </div>
+          <div class="info-item">
+            <div class="info-item-label">
+              <i class="bi bi-calendar-plus"></i>
+              Fecha de Asignación
+            </div>
+            <div class="info-item-value">
+              {{ asignacion.fecha_asignacion|date:"d/m/Y H:i"|default:"-" }}
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-item-label">
+              <i class="bi bi-calendar-x"></i>
+              Fecha de Desasignación
+            </div>
+            <div class="info-item-value">
+              {{ asignacion.fecha_desasignacion|date:"d/m/Y H:i"|default:"-" }}
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-4 pt-3 border-top" style="border-color: var(--border-color) !important;">
+          <div class="action-buttons">
+            <a class="btn btn-primary-custom btn-custom" href="{% url 'modificar_asignacion' asignacion.id %}">
+              <i class="bi bi-pencil-square"></i> Editar Asignación
+            </a>
+            <a class="btn btn-outline-custom btn-custom" href="{% url 'listado_asignaciones' %}">
+              <i class="bi bi-arrow-left"></i> Volver al Listado
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% else %}
+    <div class="card-custom">
+      <div class="card-header-custom">
+        <div class="card-header-left"><i class="bi bi-list-ul"></i> Ir al Listado</div>
+      </div>
+      <div class="card-body-custom">
+        <p>El listado de asignaciones se encuentra unificado en una sola vista.</p>
+        <a href="{% url 'listado_asignaciones' %}" class="btn btn-primary-custom btn-custom"><i class="bi bi-arrow-right-circle"></i> Ver listado</a>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    (function(){
+      const root = document.documentElement;
+      const btnLight = document.getElementById('btn-light');
+      const btnDark = document.getElementById('btn-dark');
+      
+      const saved = localStorage.getItem('asignaciones_theme') || 'light';
+      root.classList.remove('theme-dark', 'theme-light');
+      root.classList.add(saved === 'dark' ? 'theme-dark' : 'theme-light');
+      
+      if (saved === 'dark') {
+        btnDark.classList.add('active');
+        btnLight.classList.remove('active');
+      } else {
+        btnLight.classList.add('active');
+        btnDark.classList.remove('active');
+      }
+      
+      btnLight.onclick = function(){
+        root.classList.remove('theme-dark');
+        root.classList.add('theme-light');
+        localStorage.setItem('asignaciones_theme', 'light');
+        btnLight.classList.add('active');
+        btnDark.classList.remove('active');
+      };
+      
+      btnDark.onclick = function(){
+        root.classList.remove('theme-light');
+        root.classList.add('theme-dark');
+        localStorage.setItem('asignaciones_theme', 'dark');
+        btnDark.classList.add('active');
+        btnLight.classList.remove('active');
+      };
+    })();
+  </script>
+</body>
+</html>

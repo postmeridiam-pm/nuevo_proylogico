@@ -1,0 +1,17 @@
+[
+  {
+    "codigo_despacho": "DSP-TEST-000001",
+    "farmacia_origen_local_id": "LF-001",
+    "motorista_id": 1,
+    "estado": "ENTREGADO",
+    "tipo_despacho": "DOMICILIO",
+    "prioridad": "ALTA",
+    "cliente_nombre": "Cliente Demo",
+    "cliente_telefono": "+56944444444",
+    "destino_direccion": "Calle Falsa 123",
+    "tiene_receta_retenida": true,
+    "requiere_devolucion_receta": true,
+    "receta_devuelta_farmacia": false,
+    "fecha_registro": "2025-11-20T12:00:00"
+  }
+]

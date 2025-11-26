@@ -1,0 +1,7 @@
+:root { --primary-color:#2ecc71; --secondary-color:#27ae60; }
+.navbar-custom{background-color:#212529;padding:1rem 0;box-shadow:0 2px 4px rgba(0,0,0,.1);margin-bottom:1.25rem}
+.navbar-custom .page-title{color:#fff;font-weight:600;font-size:1.25rem;margin:0;display:flex;align-items:center;gap:.5rem}
+.navbar-custom .btn-nav{background:transparent;border:1px solid rgba(255,255,255,.2);color:#fff;padding:.4rem .8rem;border-radius:6px;display:inline-flex;align-items:center;gap:.5rem;text-decoration:none;font-size:.9rem}
+.navbar-custom .btn-nav:hover{background-color:rgba(255,255,255,.1);border-color:rgba(255,255,255,.3)}
+.theme-btn{background-color:transparent;border:1px solid rgba(255,255,255,.2);color:#fff;width:36px;height:36px;border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.theme-btn.active{background-color:rgba(255,255,255,.2);border-color:rgba(255,255,255,.4)}

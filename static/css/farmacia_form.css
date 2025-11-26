@@ -1,0 +1,6 @@
+body{background:#f8fafc;color:#212529}
+.navbar{border-bottom:1px solid #e9ecef}
+.card{border-radius:12px}
+.card .card-body{padding:24px}
+.btn-outline-secondary{border-color:#ced4da}
+.btn-outline-secondary:hover{background:#f1f3f5}

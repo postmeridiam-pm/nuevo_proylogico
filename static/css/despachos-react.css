@@ -1,0 +1,8 @@
+.container{max-width:1100px;margin:20px auto;padding:10px}
+.title{font-size:20px;margin-bottom:10px}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.filters input,.filters select{padding:6px;border:1px solid #ccc;border-radius:4px}
+.btn{display:inline-block;padding:6px 10px;margin-right:6px;background:#2e7d32;color:#fff;text-decoration:none;border-radius:4px}
+.table{width:100%;border-collapse:collapse}
+.table th,.table td{border:1px solid #ddd;padding:6px}
+.table th{background:#f0f8f0}

@@ -1,0 +1,4 @@
+[
+  [1,"DSP-0001","PENDIENTE","DOMICILIO","ALTA","CV Centro","Helena Díaz","AA1234","Juan Pérez","911111111","Av. Principal 123",1,0,0,"2025-11-22T08:00:00","2025-11-22T08:10:00",null,35,0,null,"-33.44,-70.66"],
+  [2,"DSP-0002","EN_CAMINO","DOMICILIO","MEDIA","CV Norte","Eren Yager","BB5678","Carla López","922222222","Calle Norte 45",0,0,0,"2025-11-22T08:05:00","2025-11-22T08:20:00","2025-11-22T08:25:00",12,1,"CLIENTE_AUSENTE","-33.45,-70.67"]
+]

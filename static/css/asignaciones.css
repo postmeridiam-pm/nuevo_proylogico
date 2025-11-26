@@ -1,0 +1,20 @@
+:root { --primary-color:#2ecc71; --secondary-color:#27ae60; }
+.navbar-custom{background-color:#212529;padding:1rem 0;box-shadow:0 2px 4px rgba(0,0,0,.1);margin-bottom:1.25rem}
+.navbar-custom .page-title{color:#fff;font-weight:600;font-size:1.25rem;margin:0;display:flex;align-items:center;gap:.5rem}
+.btn-nav{background:transparent;border:1px solid rgba(255,255,255,.2);color:#fff;padding:.4rem .8rem;border-radius:6px;display:inline-flex;align-items:center;gap:.5rem;text-decoration:none;font-size:.9rem}
+.btn-nav:hover{background-color:rgba(255,255,255,.1);border-color:rgba(255,255,255,.3)}
+.theme-btn{background-color:transparent;border:1px solid rgba(255,255,255,.2);color:#fff;width:36px;height:36px;border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.theme-btn.active{background-color:rgba(255,255,255,.2);border-color:rgba(255,255,255,.4)}
+.btn-success-nav{background-color:var(--primary-color);border:none;color:#fff;padding:.5rem 1.25rem;border-radius:6px;display:inline-flex;align-items:center;gap:.5rem;font-weight:500}
+.btn-success-nav:hover{background-color:var(--secondary-color)}
+.table thead{background:linear-gradient(135deg,var(--primary-color),var(--secondary-color));color:#fff}
+.help-banner{background:linear-gradient(135deg, rgba(46, 204, 113, 0.1), rgba(39, 174, 96, 0.1));border:1px solid #3a3f5c;border-radius:12px;padding:1rem 1.25rem;margin-bottom:1.5rem}
+/* Placeholder blanco para inputs específicos */
+.placeholder-white::placeholder{color:#fff;opacity:.8}
+/* Mayor contraste en filtros */
+.container .form-control{color:#e8eaed;background-color:#1a1d29;border-color:#3a3f5c}
+.container .form-control:focus{color:#ffffff;background-color:#1f2330;border-color:#2ecc71;box-shadow:none}
+.container .form-select{color:#e8eaed;background-color:#1a1d29;border-color:#3a3f5c}
+.container .form-select:focus{color:#ffffff;background-color:#1f2330;border-color:#2ecc71;box-shadow:none}
+.container .form-select option{color:#e8eaed;background-color:#1a1d29}
+.container label, .container .page-title{color:#ffffff}

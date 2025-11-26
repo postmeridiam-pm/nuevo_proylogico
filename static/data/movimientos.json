@@ -1,0 +1,10 @@
+[
+  {"despacho_id":1,"estado_nuevo":"ASIGNADO","fecha_movimiento":"2025-11-22T10:00:00"},
+  {"despacho_id":2,"estado_nuevo":"ASIGNADO","fecha_movimiento":"2025-11-22T10:05:00"},
+  {"despacho_id":3,"estado_nuevo":"EN_CAMINO","fecha_movimiento":"2025-11-22T10:10:00"},
+  {"despacho_id":4,"estado_nuevo":"EN_CAMINO","fecha_movimiento":"2025-11-22T10:15:00"},
+  {"despacho_id":5,"estado_nuevo":"ENTREGADO","fecha_movimiento":"2025-11-22T11:00:00"},
+  {"despacho_id":6,"estado_nuevo":"ENTREGADO","fecha_movimiento":"2025-11-22T11:10:00"},
+  {"despacho_id":7,"estado_nuevo":"FALLIDO","fecha_movimiento":"2025-11-22T11:20:00"},
+  {"despacho_id":8,"estado_nuevo":"FALLIDO","fecha_movimiento":"2025-11-22T11:25:00"}
+]

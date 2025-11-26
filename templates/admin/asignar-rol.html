@@ -1,0 +1,37 @@
+{% load static %}
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Asignar rol</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="{% static 'css/theme.css' %}">
+</head>
+<body>
+  <div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h1 class="h4 mb-0">Asignar rol a {{ usuario.username }}</h1>
+      <a class="btn btn-outline-secondary" href="{% url 'gestionar_usuarios' %}"><i class="bi bi-arrow-left"></i> Volver</a>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label class="form-label">Rol</label>
+            <select class="form-select" name="rol">
+              <option value="admin" {% if rol_actual == 'admin' %}selected{% endif %}>ADMIN</option>
+              {% for codigo, nombre in roles.items %}
+                <option value="{{ codigo }}" {% if rol_actual == codigo %}selected{% endif %}>{{ nombre }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <button class="btn btn-primary" type="submit"><i class="bi bi-check-lg"></i> Guardar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

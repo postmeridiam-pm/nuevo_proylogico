@@ -1,0 +1,6 @@
+body{background-color:var(--bg);color:var(--text)}
+.navbar{border-bottom:1px solid var(--border)}
+.card{border-radius:12px}
+.table thead{background-color:var(--nav)}
+.table thead th{color:var(--text)}
+.badge{border-radius:8px}

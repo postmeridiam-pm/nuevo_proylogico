@@ -1,0 +1,5 @@
+[
+  {"codigo_despacho":"DSP-2025-000123","motorista":"Juan Pérez","tipo_incidencia":"CLIENTE_AUSENTE","fecha_registro":"2025-11-20 10:15:00"},
+  {"codigo_despacho":"DSP-2025-000124","motorista":"María Gómez","tipo_incidencia":"DIRECCION_INCORRECTA","fecha_registro":"2025-11-20 11:05:00"},
+  {"codigo_despacho":"DSP-2025-000125","motorista":"Luis Díaz","tipo_incidencia":"REQUIERE_APROBACION","fecha_registro":"2025-11-20 12:45:00"}
+]

@@ -1,0 +1,168 @@
+{% load static %}
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Asignaciones Motorista–Farmacia - LOGICO</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="{% static 'css/theme.css' %}">
+</head>
+<body>
+  <div class="container py-4">
+    <!-- Header con título y controles -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h1 class="h4 mb-0"><i class="bi bi-link-45deg"></i> Asignaciones Motorista–Farmacia</h1>
+      <div class="d-flex gap-2">
+        <button id="btn-light" class="btn btn-outline-success btn-pill" type="button">☀️</button>
+        <button id="btn-dark" class="btn btn-outline-secondary btn-pill" type="button">🌙</button>
+        <a class="btn btn-outline-secondary btn-pill" href="{% url 'home' %}"><i class="bi bi-arrow-left"></i> Inicio</a>
+        <a class="btn btn-success btn-pill" href="{% url 'agregar_asignacion_mf' %}"><i class="bi bi-plus-lg"></i> Nueva</a>
+      </div>
+    </div>
+
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-3">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'home' %}">Inicio</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Asignaciones Motorista–Farmacia</li>
+      </ol>
+    </nav>
+
+    <!-- Búsqueda y filtros -->
+    <div class="card mb-3">
+      <div class="card-body">
+        <form class="row g-3" method="get">
+          <div class="col-md-8">
+            <label class="form-label">Buscar</label>
+            <input class="form-control" type="text" name="search" value="{{ search_query }}" placeholder="Buscar por motorista o farmacia">
+          </div>
+          <div class="col-md-2">
+            <label class="form-label">Estado</label>
+            <select class="form-select" name="estado">
+              <option value="">Todas</option>
+              <option value="activa" {% if filtro_estado == 'activa' %}selected{% endif %}>Activas</option>
+              <option value="inactiva" {% if filtro_estado == 'inactiva' %}selected{% endif %}>Inactivas</option>
+            </select>
+          </div>
+          <div class="col-md-2 d-flex align-items-end">
+            <button class="btn btn-success w-100" type="submit"><i class="bi bi-funnel"></i> Filtrar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Tabla de asignaciones -->
+    <div class="card">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0">
+            <thead>
+              <tr>
+                <th>Motorista</th>
+                <th>Farmacia</th>
+                <th>Fecha Asignación</th>
+                <th>Fecha Desasignación</th>
+                <th>Estado</th>
+                <th class="text-end">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for a in page_obj.object_list %}
+              <tr>
+                <td>
+                  <strong>{{ a.motorista.usuario.nombre }} {{ a.motorista.usuario.apellido }}</strong>
+                  <br>
+                  <small class="text-muted">{{ a.motorista.usuario.rut }}</small>
+                </td>
+                <td>
+                  <strong>{{ a.farmacia.local_nombre }}</strong>
+                  <br>
+                  <small class="text-muted">{{ a.farmacia.comuna_nombre }}</small>
+                </td>
+                <td>{{ a.fecha_asignacion|date:"d/m/Y" }}</td>
+                <td>
+                  {% if a.fecha_desasignacion %}
+                    {{ a.fecha_desasignacion|date:"d/m/Y" }}
+                  {% else %}
+                    <span class="text-muted">-</span>
+                  {% endif %}
+                </td>
+                <td>
+                  {% if a.activa %}
+                    <span class="badge bg-success">Activa</span>
+                  {% else %}
+                    <span class="badge bg-secondary">Inactiva</span>
+                  {% endif %}
+                </td>
+                <td class="text-end">
+                  <div class="btn-group">
+                    <a class="btn btn-sm btn-outline-info" href="{% url 'detalle_asignacion_mf' a.id %}" title="Ver detalles">
+                      <i class="bi bi-eye"></i>
+                    </a>
+                    <a class="btn btn-sm btn-outline-warning" href="{% url 'modificar_asignacion_mf' a.id %}" title="Editar">
+                      <i class="bi bi-pencil"></i>
+                    </a>
+                    <a class="btn btn-sm btn-outline-danger" href="{% url 'remover_asignacion_mf' a.id %}" title="Eliminar">
+                      <i class="bi bi-trash"></i>
+                    </a>
+                  </div>
+                </td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td colspan="6" class="text-center py-4">
+                  <i class="bi bi-inbox fs-1 text-muted"></i>
+                  <p class="text-muted mb-0">No se encontraron asignaciones</p>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card-footer d-flex justify-content-between align-items-center">
+        {% if page_obj.has_previous %}
+          <a class="btn btn-outline-secondary" href="?page={{ page_obj.previous_page_number }}&search={{ search_query }}&estado={{ filtro_estado }}">
+            <i class="bi bi-chevron-left"></i> Anterior
+          </a>
+        {% else %}
+          <span></span>
+        {% endif %}
+        <span class="text-muted">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+        {% if page_obj.has_next %}
+          <a class="btn btn-outline-secondary" href="?page={{ page_obj.next_page_number }}&search={{ search_query }}&estado={{ filtro_estado }}">
+            Siguiente <i class="bi bi-chevron-right"></i>
+          </a>
+        {% else %}
+          <span></span>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    (function(){
+      // Theme toggle
+      const root = document.documentElement;
+      const saved = localStorage.getItem('asig_mf_theme') || 'dark';
+      root.classList.remove('theme-dark', 'theme-light');
+      root.classList.add(saved === 'dark' ? 'theme-dark' : 'theme-light');
+      
+      document.getElementById('btn-light').onclick = function(){
+        root.classList.remove('theme-dark');
+        root.classList.add('theme-light');
+        localStorage.setItem('asig_mf_theme', 'light');
+      };
+      
+      document.getElementById('btn-dark').onclick = function(){
+        root.classList.remove('theme-light');
+        root.classList.add('theme-dark');
+        localStorage.setItem('asig_mf_theme', 'dark');
+      };
+    })();
+  </script>
+</body>
+</html>

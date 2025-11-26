@@ -1,0 +1,7 @@
+body{background:#f8fafc;color:#212529}
+.navbar{border-bottom:1px solid #e9ecef}
+.card{border-radius:12px}
+.card .card-body{padding:24px}
+.row .form-control{border-radius:8px}
+.form-check input{transform:scale(1.2)}
+.btn{border-radius:8px}
